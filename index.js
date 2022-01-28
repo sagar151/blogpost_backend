@@ -3,6 +3,7 @@ const mongoose=require("mongoose");
 const cors=require("cors")
 const BlogPost=require("./Model")
 const app=express()
+require("dotenv").config()
 mongoose.connect(`mongodb://localhost/blogs`,{
     useNewUrlParser:true,
     useUnifiedTopology:true
@@ -54,6 +55,6 @@ app.post("/display",(req,res)=>{
         res.send(result)
     })
   })
-app.listen(8080,()=>{
+app.listen(process.env.PORT || 8080,()=>{
     console.log("port is 8080");
 })
