@@ -29,6 +29,9 @@ app.post("/add",(req,res)=>{
         }
     )
 })
+app.post("/sayhello",(req,res)=>{
+    res.json({hello:'world'})
+})
 app.post("/update",(req,res)=>{
     console.log("id",req.body)
     // console.log("title",req.body.title)
