@@ -5,7 +5,7 @@ const BlogPost = require("./Model");
 const app = express();
 require("dotenv").config();
 mongoose.connect(
-  `mongodb+srv://sagar151:sagargajera2000@cluster0.w6ifx.mongodb.net/myFirstDatabase?retryWrites=true&w=majoritys`,
+  `mongodb+srv://sagar151:sagargajera2000@cluster0.w6ifx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -15,21 +15,29 @@ mongoose.connect(
     console.log("database connected");
   }
 );
-const corsOptions ={
-    origin:'http://localhost:3000', 
-    credentials:true,         
-    optionSuccessStatus:200,
-}
-app.use(cors(corsOptions));
+// const corsOptions ={
+//     origin:'http://localhost:3000', 
+//     credentials:true,         
+//     optionSuccessStatus:200,
+// }
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.get("/", (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "*")
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Max-Age", "1800");
-    res.setHeader("Access-Control-Allow-Headers", "content-type");
-    res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
-     })
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*")
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested, Content-Type, Accept Authorization"
+  )
+  if (req.method === "OPTIONS") {
+    res.header(
+      "Access-Control-Allow-Methods",
+      "POST, PUT, PATCH, GET, DELETE"
+    )
+    return res.status(200).json({})
+  }
+  next()
+})
 app.post("/add", cors(corsOptions),(req, res) => {
   console.log("add");
   console.log("BlogPost", req.body);
