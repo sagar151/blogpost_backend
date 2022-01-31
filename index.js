@@ -5,7 +5,7 @@ const BlogPost = require("./Model");
 const app = express();
 require("dotenv").config();
 mongoose.connect(
-  `mongodb://localhost/blogs`,
+  `mongodb+srv://sagar151:sagargajera2000@cluster0.w6ifx.mongodb.net/myFirstDatabase?retryWrites=true&w=majoritys`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
