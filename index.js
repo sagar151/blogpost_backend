@@ -16,29 +16,26 @@ mongoose.connect(
   }
 );
 // const corsOptions ={
-//     origin:'http://localhost:3000', 
-//     credentials:true,         
+//     origin:'http://localhost:3000',
+//     credentials:true,
 //     optionSuccessStatus:200,
 // }
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*")
+  res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested, Content-Type, Accept Authorization"
-  )
+  );
   if (req.method === "OPTIONS") {
-    res.header(
-      "Access-Control-Allow-Methods",
-      "POST, PUT, PATCH, GET, DELETE"
-    )
-    return res.status(200).json({})
+    res.header("Access-Control-Allow-Methods", "POST, PUT, PATCH, GET, DELETE");
+    return res.status(200).json({});
   }
-  next()
-})
-app.post("/add", cors(corsOptions),(req, res) => {
+  next();
+});
+app.post("/add", (req, res) => {
   console.log("add");
   console.log("BlogPost", req.body);
   const title = req.body.title;
@@ -52,7 +49,7 @@ app.post("/add", cors(corsOptions),(req, res) => {
       console.log("data saved", result);
     });
 });
-app.post("/sayhello",cors(corsOptions), (req, res) => {
+app.post("/sayhello", (req, res) => {
   res.json({ hello: "world" });
 });
 app.post("/update", (req, res) => {
@@ -70,17 +67,17 @@ app.post("/update", (req, res) => {
     console.log("data updated", result);
   });
 });
-app.post("/delete",cors(corsOptions), (req, res) => {
+app.post("/delete", (req, res) => {
   console.log("delete is called", req.body.id);
   BlogPost.findOneAndRemove({ _id: req.body.id }).then((result) => {
     console.log("data deleted", result);
   });
 });
-app.post("/hello",cors(corsOptions), (req, res) => {
+app.post("/hello", (req, res) => {
   console.log("dkfnsdm");
   console.log("req.body", req.body);
 });
-app.post("/display",cors(corsOptions), (req, res) => {
+app.post("/display", (req, res) => {
   BlogPost.find().then((result) => {
     res.send(result);
   });
